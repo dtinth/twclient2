@@ -71,7 +71,7 @@ if (!window.platform.showNotification) {
 if (!window.platform.openURI) {
 	window.platform.openURI = function(uri) {
 		var conn = Connection();
-		conn.postMessage({ kind: 'uri', url: uri });
+		conn.postMessage({ kind: 'uri', uri: uri });
 		conn.disconnect();
 	};
 }
