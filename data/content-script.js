@@ -51,9 +51,13 @@ window.thaiWitterClientStream = function(url, cb, hung) {
 			cb(message.data);
 		} else if (message.kind == 'close') {
 			hung();
+			conn.disconnect();
 		}
 	};
 	conn.postMessage({ kind: 'stream', url: url });
+	return function() {
+		conn.postMessage({ kind: 'abortStream' });
+	};
 };
 
 if (!window.platform) {
