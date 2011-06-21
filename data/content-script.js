@@ -6,17 +6,17 @@ var Connection;
 	var nextID = 1;
 	var connections = {};
 
-	onMessage = function onMessage(message) {
+	self.on('message', function(message) {
 		if (connections[message.id]) {
 			connections[message.id].onmessage(message.data);
 		}
-	};
+	});
 
 	Connection = function Connection() {
 		var that = {};
 		var id = nextID++;
 		that.postMessage = function(message) {
-			postMessage({
+			self.postMessage({
 				id: id,
 				data: message
 			});
@@ -32,9 +32,9 @@ var Connection;
 
 })();
 
-window.thaiWitterClientVersion = '6';
+unsafeWindow.thaiWitterClientVersion = '6';
 
-window.thaiWitterClientEcho = function(str, cb) {
+unsafeWindow.thaiWitterClientEcho = function(str, cb) {
 	var data = JSON.parse(str.substr(5));
 	var conn = Connection();
 	conn.onmessage = function(message) {
@@ -44,7 +44,7 @@ window.thaiWitterClientEcho = function(str, cb) {
 	conn.postMessage({ kind: 'echo', data: data });
 };
 
-window.thaiWitterClientStream = function(url, cb, hung) {
+unsafeWindow.thaiWitterClientStream = function(url, cb, hung) {
 	var conn = Connection();
 	conn.onmessage = function(message) {
 		if (message.kind == 'data') {
@@ -60,20 +60,20 @@ window.thaiWitterClientStream = function(url, cb, hung) {
 	};
 };
 
-if (!window.platform) {
-	window.platform = {};
+if (!unsafeWindow.platform) {
+	unsafeWindow.platform = {};
 }
 
-if (!window.platform.showNotification) {
-	window.platform.showNotification = function(title, text) {
+if (!unsafeWindow.platform.showNotification) {
+	unsafeWindow.platform.showNotification = function(title, text) {
 		var conn = Connection();
 		conn.postMessage({ kind: 'notify', title: title, text: text });
 		conn.disconnect();
 	};
 }
 
-if (!window.platform.openURI) {
-	window.platform.openURI = function(uri) {
+if (!unsafeWindow.platform.openURI) {
+	unsafeWindow.platform.openURI = function(uri) {
 		var conn = Connection();
 		conn.postMessage({ kind: 'uri', uri: uri });
 		conn.disconnect();
