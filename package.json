@@ -2,7 +2,7 @@
     "name": "twclient2", 
     "license": "MPL 1.1/GPL 2.0/LGPL 2.1", 
     "author": "Thai Pangsakulyanont", 
-    "version": "0.3", 
+    "version": "0.4", 
     "fullName": "thaiWitter Client Add On", 
     "id": "jid0-HbFRsO8iXeOBhKKZTr0Yc0W2W0E", 
     "description": "Adds echo and streaming functionality to thaiWitter"
