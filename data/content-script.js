@@ -65,9 +65,9 @@ if (!unsafeWindow.platform) {
 }
 
 if (!unsafeWindow.platform.showNotification) {
-	unsafeWindow.platform.showNotification = function(title, text) {
+	unsafeWindow.platform.showNotification = function(title, text, picture) {
 		var conn = Connection();
-		conn.postMessage({ kind: 'notify', title: title, text: text });
+		conn.postMessage({ kind: 'notify', title: title, text: text, picture: picture });
 		conn.disconnect();
 	};
 }
